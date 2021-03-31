@@ -22,33 +22,19 @@ reddit = praw.Reddit(
                      password='Qwerty@123',
                      user_agent='web scrapper'
                      )
-m={0: 'Art/Photo (OC)', 1: 'AskIndia',
- 2: 'Business/Finance',
- 3: 'Coronavirus',
- 4: 'Culture & Heritage ',
- 5: 'Food',
- 6: 'Foreign Relations',
- 7: 'History ',
- 8: 'Law & Courts',
- 9: 'Non-Political',
- 10: 'Policy/Economy',
- 11: 'Politics',
- 12: 'Science/Technology',
- 13: '| Repost |'}
+m=joblib.load('category.pkl')
 cv=joblib.load("transformer.pkl")
 mnb=joblib.load('model.pkl')
 def home(request):
     if request.method=="POST":
-        data=request.POST['kuchbhi']
-        print(data)
-        x=predict(data)
-        return render(request,"flair/index.html",{'data':x})
-    return render(request,"flair/index.html")
+        url=request.POST['kuchbhi']
+        submission = reddit.submission(url=url)
+        x=predict(submission.title)
+        return render(request,"flair/index.html",{'data':1,'detected':x,'actual':submission.link_flair_text,'title':submission.title})
+    return render(request,"flair/index.html",{'data':0})
 
-def predict(url):
-    submission = reddit.submission(url=url)
-    print(submission.title)
-    title=cv.transform([submission.title])
+def predict(title):
+    title=cv.transform([title])
     index=int(mnb.predict(title))
     result=m[index]
     return result

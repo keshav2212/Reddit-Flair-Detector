@@ -7,24 +7,76 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style type="text/css">
+      input[type="text"]::placeholder { 
+                  
+                text-align: center;
 
+            }
+            #copyright{
+              position:absolute;
+              bottom:0px; left:0px;
+              background-color: black;
+              width:100%;
+              color: white;
+              text-align: center;
+            }
+              table {
+                border: 1px solid black;
+                border-collapse: collapse;
+                border-radius: 1em;
+                overflow: hidden;
+
+              }
+
+              th, td {
+                padding: 1em;
+                background: #ddd;
+                border-bottom: 2px solid white; 
+              }
+
+              table,th, td {
+              border: 1px solid black;
+              padding: 10px;
+              }
+             .center{
+               margin-left: auto;
+              margin-right: auto;
+             }
+
+    </style>
     <title>Flair Detector</title>
   </head>
-  <body>
-    <h1>Enter the link of Post</h1>
-
-<form method="POST">{% csrf_token %}
-  <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" >URL : </span>
-  </div>
-     <input type="text" class="form-control" id="url" name="kuchbhi" aria-describedby="basic-addon3">
-  
+  <div style="text-align: center;margin-top: 2%;"><h1>Reddit Flair Detector</h1></div>
+  <body style="background: linear-gradient(315deg, #2f4353 0%, #d2ccc4 74%) fixed;">
+<div class="container">
+<form class="center" method="POST" style="text-align: center;margin-top: 3%;">{% csrf_token %}
+  <div class="input-group mb-3 center" style="width: 30%;">
+     <input type="text" class="form-control" id="url" name="kuchbhi" aria-describedby="basic-addon3" placeholder="Enter Post Link">
 </div>
 <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+{% if data is 1 %}
+
+<table class="center" style="width: auto; font-size: 25px;margin-top: 10%;text-align: center;border-radius: 10px;">
+  <tr>
+    <td>Post Title</td>
+    <td>{{title}}</td> 
+  </tr>
+  <tr>
+    <td> Detected Flair</td>
+    <th>{{detected}}</th>
+  </tr>
+  <tr>
+    <td> Actual Flair</td>
+    <th>{{actual}}</th>
+  </tr>
+</table>
+{% endif %}
+<div id="copyright" style="margin-top: -20px;font-size: 20px;">
+  Developed By Keshav Kumar
 </div>
-</br></br>{{data}}
+</div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -5,7 +5,7 @@ Django==2.2.18
 django-heroku==0.3.1
 gunicorn==20.0.4
 idna==2.9
-joblib==0.14.1
+joblib==1.2.0
 numpy==1.18.3
 pandas==1.0.3
 praw==6.5.1
